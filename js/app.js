@@ -44,10 +44,32 @@ function validarFormulario(e){
     e.preventDefault();
     const {moneda, criptomoneda} = objBusqueda;
     if(moneda === '' || criptomoneda === ''){
-        imprimirAlerta('Ambos campos son obligatorios')
+        imprimirAlerta('Ambos campos son obligatorios');
+        return;
     }
+    //consultar API
+    consultarAPI()
 }
 
 function imprimirAlerta(m){
-    console.log(m)
+    const existeError = document.querySelector('.error');
+
+    if(!existeError){
+        const divMensaje = document.createElement('p');
+        divMensaje.classList.add('error');
+        divMensaje.textContent = m;
+        formulario.appendChild(divMensaje);
+    
+        setTimeout(() => {
+            divMensaje.remove()
+        }, 3000)
+    }
+    
+}
+
+function consultarAPI(){
+    const {moneda, criptomoneda } = objBusqueda;
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR`
+    const prueba = "${moneda}"
+    
 }
